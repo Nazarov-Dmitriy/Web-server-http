@@ -48,7 +48,7 @@ public class ClientHandler implements Runnable {
 
                 byte[] replaseClassicHtml = replaceHtml("/classic.html", filePath, "{time}", LocalDateTime.now().toString());
 
-                if(replaseClassicHtml.length != 0){
+                if (replaseClassicHtml.length != 0) {
                     responseHeaders("200 OK", mimeType, replaseClassicHtml.length, replaseClassicHtml);
                     continue;
                 }

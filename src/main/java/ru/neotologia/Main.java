@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         var port = Integer.parseInt(readSettings());
         Server server = new Server(port);
         server.start();

@@ -19,9 +19,7 @@ public class Server extends Thread {
     public void run() {
         try (final var serverSocket = new ServerSocket(port)) {
             while (true) {
-                try (final var socket = serverSocket.accept();
-                     var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                     var out = new BufferedOutputStream(socket.getOutputStream());) {
+                try (final var socket = serverSocket.accept(); var in = new BufferedReader(new InputStreamReader(socket.getInputStream())); var out = new BufferedOutputStream(socket.getOutputStream());) {
                     threadPool.execute(new ClientHandler(in, out));
 
                 }
