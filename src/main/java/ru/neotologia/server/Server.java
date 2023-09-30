@@ -20,11 +20,10 @@ public class Server extends Thread {
         try (final var serverSocket = new ServerSocket(port)) {
             while (true) {
                 try (final var socket = serverSocket.accept();
-                      var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                      var out = new BufferedOutputStream(socket.getOutputStream());) {
-                    System.out.println("new coon");
-                    threadPool.execute(new ClientHandler( in, out));
-                    System.out.println(threadPool.toString());
+                     var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                     var out = new BufferedOutputStream(socket.getOutputStream());) {
+                    threadPool.execute(new ClientHandler(in, out));
+
                 }
 
             }
