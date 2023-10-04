@@ -1,19 +1,23 @@
 package ru.neotologia.request;
 
+import org.apache.http.NameValuePair;
+
+import java.util.List;
+
 public class Request {
     String method;
     String path;
-    String body;
+    List<NameValuePair> querys;
 
     public Request(String method, String path) {
         this.method = method;
         this.path = path;
     }
 
-    public Request(String method, String path, String body) {
+    public Request(String method, String path, List<NameValuePair> querys) {
         this.method = method;
         this.path = path;
-        this.body = body;
+        this.querys = querys;
     }
 
     public String getMethod() {
@@ -24,7 +28,7 @@ public class Request {
         return path;
     }
 
-    public String getBody() {
-        return body;
+    public List<NameValuePair> getQuery() {
+        return querys;
     }
 }

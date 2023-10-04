@@ -1,18 +1,11 @@
 package ru.neotologia;
-
-
-import ru.neotologia.hendler.Handler;
-import ru.neotologia.request.Request;
 import ru.neotologia.server.Server;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
+import static ru.neotologia.clientHandler.ClientHandler.getQueryParam;
 
 public class Main {
-
 
     public static void main(String[] args) {
         var port = Integer.parseInt(readSettings());
@@ -20,7 +13,9 @@ public class Main {
 
         server.addHandler("GET", "/messages",
                 (request, response) -> {
-                    System.out.println(request.getBody());
+                    // Получение параметра из query
+                    System.out.println(getQueryParam(request.getQuery(), "111"));
+
                     final var filePath = Path.of(".", "public", request.getPath() + ".html");
                     final var mimeType = Files.probeContentType(filePath);
                     final var length = Files.size(filePath);

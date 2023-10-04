@@ -13,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import static ru.neotologia.server.Server.handlerList;
@@ -48,14 +47,16 @@ public class ClientHandler implements Runnable {
 
                 final var method = parts[0];
                 var path = parts[1];
-                String query = null;
+                List<NameValuePair> querys = null;
 
                 if (method.equals("GET") && path.contains("?")) {
-                    query = getQueryParam(path).toString();
+                    querys = getQueryParams(path);
+//                    String query = getQueryParam(querys, "sss");
+//                    System.out.println(query);
                     path = path.split("\\?")[0];
                 }
 
-                var request = new Request(method, path, query);
+                var request = new Request(method, path, querys);
 
                 if (!validPaths.contains(path) && !handlerList.containsKey(path)) {
                     responseHeaders("404 Not Found", 0);
@@ -85,8 +86,18 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private List<NameValuePair> getQueryParam(String path) throws URISyntaxException {
+    public List<NameValuePair> getQueryParams(String path) throws URISyntaxException {
         return URLEncodedUtils.parse(new URI(path), StandardCharsets.UTF_8);
+    }
+
+    public static String getQueryParam(List<NameValuePair> querys, String query) throws URISyntaxException {
+        String param = null;
+        for (NameValuePair item : querys) {
+            if (query.equals(item.toString().split("=")[0])) {
+                param = item.toString().split("=")[1];
+            }
+        }
+        return param;
     }
 
     public byte[] replaceHtml(String path, Path filePath, String str, String replace) throws IOException {
