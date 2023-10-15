@@ -51,8 +51,6 @@ public class ClientHandler implements Runnable {
 
                 if (method.equals("GET") && path.contains("?")) {
                     querys = getQueryParams(path);
-//                    String query = getQueryParam(querys, "sss");
-//                    System.out.println(query);
                     path = path.split("\\?")[0];
                 }
 
@@ -88,16 +86,6 @@ public class ClientHandler implements Runnable {
 
     public List<NameValuePair> getQueryParams(String path) throws URISyntaxException {
         return URLEncodedUtils.parse(new URI(path), StandardCharsets.UTF_8);
-    }
-
-    public static String getQueryParam(List<NameValuePair> querys, String query) throws URISyntaxException {
-        String param = null;
-        for (NameValuePair item : querys) {
-            if (query.equals(item.toString().split("=")[0])) {
-                param = item.toString().split("=")[1];
-            }
-        }
-        return param;
     }
 
     public byte[] replaceHtml(String path, Path filePath, String str, String replace) throws IOException {

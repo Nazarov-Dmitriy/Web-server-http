@@ -1,9 +1,10 @@
 package ru.neotologia;
+
 import ru.neotologia.server.Server;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import static ru.neotologia.clientHandler.ClientHandler.getQueryParam;
 
 public class Main {
 
@@ -14,7 +15,7 @@ public class Main {
         server.addHandler("GET", "/messages",
                 (request, response) -> {
                     // Получение параметра из query
-                    System.out.println(getQueryParam(request.getQuery(), "111"));
+                    System.out.println(request.getQueryParam("sss"));
 
                     final var filePath = Path.of(".", "public", request.getPath() + ".html");
                     final var mimeType = Files.probeContentType(filePath);
